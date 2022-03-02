@@ -1,0 +1,30 @@
+resources:
+- name: branch
+  type: git
+  source:
+    uri: https://github.com/ladean/shiloh.git
+    branch: ((branch))
+
+- name: examples
+  type: git
+  source:
+    uri: https://github.com/ladean/shiloh.git
+
+jobs:
+- name: test
+  plan:
+  - in_parallel:
+    - get: branch
+      trigger: true
+  - task: unit
+    input_mapping: {repo: branch}
+    run:
+      path: /bin/sh  
+      args:
+        - -xce
+        - |
+          cd pull-request
+          git log --graph --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" > log.txt
+          cat log.txt
+
+
