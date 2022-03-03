@@ -14,7 +14,7 @@ resources:
     # group under the `groups` key.
     #
     # e.g. feature/some-feature ==> {"groups": {"feature": "some-feature"}}
-    branch_regex: 'feature/(?P<feature>.*)'
+    branch_regex: '(*)'
 
 - name: pr
   type: git
