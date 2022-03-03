@@ -5,7 +5,7 @@ resources:
     uri: https://github.com/ladean/shiloh.git
     branch: ((branch))
 
-- name: examples
+- name: pr
   type: git
   source:
     uri: https://github.com/ladean/shiloh.git

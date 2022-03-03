@@ -5,7 +5,7 @@ resource_types:
     repository: aoldershaw/git-branches-resource
 
 resources:
-- name: feature-branches
+- name: branches
   type: git-branches
   source:
     uri: https://github.com/ladean/shiloh.git
@@ -16,7 +16,7 @@ resources:
     # e.g. feature/some-feature ==> {"groups": {"feature": "some-feature"}}
     branch_regex: 'feature/(?P<feature>.*)'
 
-- name: examples
+- name: pr
   type: git
   source:
     uri: https://github.com/ladean/shiloh.git
@@ -25,9 +25,9 @@ jobs:
 - name: set-feature-pipelines
   plan:
   - in_parallel:
-    - get: feature-branches
+    - get: branches
       trigger: true
-    - get: examples
+    - get: pr
   - load_var: branches
     file: feature-branches/branches.json
   - across:
