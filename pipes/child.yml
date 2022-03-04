@@ -5,12 +5,18 @@ resource_types:
     repository: aoldershaw/github-pr-resource
 
 resources:
-- name: pull-request
-  type: pull-request
+#- name: pull-request
+#  type: pull-request
+#  source:
+#    repository: itsdalmo/test-repository
+#    access_token: ((github-access-token))
+#    number: ((number))
+
+- name: pr
+  type: git
   source:
-    repository: itsdalmo/test-repository
-    access_token: ((github-access-token))
-    number: ((number))
+    uri: https://github.com/ladean/shiloh.git
+    branch: ((number))
 
 - name: test
   plan:
