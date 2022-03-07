@@ -4,14 +4,8 @@ resource_types:
   source:
     repository: aoldershaw/github-pr-resource
 
-#resources:
-#- name: pull-requests
-#  type: pull-request
-#  source:
-#    repository: itsdalmo/test-repository
-#    access_token: ((github-access-token))
-
-- name: pr
+resources:
+- name: pull-requests
   type: git
   source:
     uri: https://github.com/ladean/shiloh.git
@@ -26,9 +20,9 @@ jobs:
 - name: update-pr-pipelines
   plan:
   - get: ci
-  - get: pr
+  - get: pull-requests
     trigger: true
-  - load_var: pr
+  - load_var: pull-requests
     file: pull-requests/prs.json
   - across:
     - var: pr

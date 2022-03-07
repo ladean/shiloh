@@ -12,7 +12,7 @@ resources:
 #    access_token: ((github-access-token))
 #    number: ((number))
 
-- name: pr
+- name: pull-request
   type: git
   source:
     uri: https://github.com/ladean/shiloh.git
