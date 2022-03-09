@@ -24,3 +24,5 @@ jobs:
       run:
         path: echo
         args: [hello world]
+      inputs:
+        - name: pr  
