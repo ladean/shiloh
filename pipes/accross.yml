@@ -15,6 +15,15 @@ resources:
 jobs:
 - name: hello
   plan:
+  - get: pr
+    trigger: true
+  - put: pr-status
+    resource: pr
+    params:
+      path: pull-request
+      status: pending
+    get_params: {skip_download: true}  
+
   - task: hello-world
     config:
       platform: linux
@@ -25,4 +34,17 @@ jobs:
         path: echo
         args: [hello world]
       inputs:
-        - name: pr  
+        - name: release-pr  
+
+  on_success:
+    put: pr
+    params:
+      path: release-pr
+      status: success
+    get_params: {skip_download: true}
+  on_failure:
+    put: pr
+    params:
+      path: release-pr
+      status: failure
+    get_params: {skip_download: true}       
