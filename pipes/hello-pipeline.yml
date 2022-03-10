@@ -11,7 +11,7 @@ resources:
     repository: lasean/shiloh
     access_token: ((github-access-token))
     number: ((number))
-    branch: ((branch))
+    base_branch: ((branch))
 
 jobs:
 - name: hello
