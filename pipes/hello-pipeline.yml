@@ -1,0 +1,50 @@
+resource_types:
+- name: pull-request
+  type: registry-image
+  source:
+    repository: aoldershaw/github-pr-resource
+
+resources:
+- name: pr
+  type: pull-request
+  source:
+    repository: ladean/shiloh
+    access_token: ((github-access-token))
+    number: ((number))
+
+jobs:
+- name: hello
+  plan:
+  - get: pr
+    trigger: true
+  - put: pr-status
+    resource: pr
+    params:
+      path: pull-request
+      status: pending
+    get_params: {skip_download: true}  
+
+  - task: hello-world
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      run:
+        path: echo
+        args: [hello world]
+      inputs:
+        - name: release-pr  
+
+  on_success:
+    put: pr
+    params:
+      path: release-pr
+      status: success
+    get_params: {skip_download: true}
+  on_failure:
+    put: pr
+    params:
+      path: release-pr
+      status: failure
+    get_params: {skip_download: true}       
