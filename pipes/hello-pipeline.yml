@@ -8,7 +8,7 @@ resources:
 - name: pr
   type: pull-request
   source:
-    repository: lasean/shiloh
+    repository: ladean/shiloh
     access_token: ((github-access-token))
     number: ((number))
 
